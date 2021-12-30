@@ -2,8 +2,8 @@ import os
 import pytest
 
 from pathlib import Path
-from velog_hits.crawler import HitsCrawler
 from velog_hits.convertor import DF2HTMLConverter
+from velog_hits.crawler import HitsCrawler
 
 
 class TestUpdateColumn:
@@ -32,8 +32,8 @@ class TestUpdateColumn:
   def test_convert_df_to_html(self, post_infos, html_convertor):
     assert html_convertor.convert_df_to_html(post_infos)
 
-    root_path = Path((Path(__file__).parent).parent.resolve())
-    index_html_path = os.path.join(root_path, "htmlhits", "index.html")
+    velog_hits_path = Path.cwd()
+    index_html_path = os.path.join(velog_hits_path, "htmlhits", "index.html")
     assert os.path.isfile(index_html_path)
 
 

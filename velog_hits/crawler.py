@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import requests
+import sys
 
 from velog_hits.graphql import graphql_posts, graphql_get_status
 
@@ -20,7 +21,8 @@ class HitsCrawler:
       self = args[0]
       response = requests.get(f"https://velog.io/@{self.username}")
       if response.status_code == 404:
-        raise Exception("해당 유저는 존재하지 않습니다.")
+        print("해당 유저는 존재하지 않습니다.")
+        sys.exit()
       return func(*args, **kwargs)
     return decorate
 
@@ -28,7 +30,8 @@ class HitsCrawler:
     def decorate(*args, **kwargs):
       self = args[0]
       if self.access_token is None:
-        raise Exception("Access Token이 존재하지 않습니다.")
+        print("Access Token이 존재하지 않습니다.")
+        sys.exit()
       return func(*args, **kwargs)
     return decorate
 
@@ -90,6 +93,8 @@ class HitsCrawler:
                 "latest_day": response_data["data"]["getStats"]["count_by_day"][0]["day"]
             }
         )
-      except TypeError as e:
-        raise Exception(f"{e}, Access Token이 만료 되었을 수 있습니다.")
+      except TypeError:
+        print("Access Token이 잘못된 형식이거나 만료 되었을 수 있습니다.")
+        sys.exit()
+
     return hits

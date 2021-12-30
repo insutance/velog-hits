@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import sys
 
 from pathlib import Path
 
@@ -7,8 +8,8 @@ from pathlib import Path
 class DF2HTMLConverter:
   def convert_df_to_html(self, df):
     try:
-      root_path = Path((Path(__file__).parent).parent.resolve())
-      html_path = os.path.join(root_path, "htmlhits")
+      velog_hits_path = Path.cwd()
+      html_path = os.path.join(velog_hits_path, "htmlhits")
       if not os.path.isdir(html_path):
         os.mkdir(html_path)
 
@@ -20,11 +21,13 @@ class DF2HTMLConverter:
         json_data = df.to_json(orient="records", date_format="iso")
         json_file.write(json_data)
 
-      print("Velog Hits Crawling Success!!")
+      print("Velog Hits Success!!")
+      print(f"Velog Hits Result: {os.path.join(html_path, 'index.html')}")
       return True
 
-    except Exception as e:
-      raise Exception(e)
+    except Exception:
+      print("Velog Hits Fail")
+      sys.exit()
 
   def get_result_dataframe(self, df, url):
     df = self._create_url(df, url)
