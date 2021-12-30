@@ -11,7 +11,7 @@
 ### 2) 설치
 - git clone
   ```shell
-  $ git clone https://github.com/linewalks/tabdanc.git
+  $ git clone https://github.com/insutance/velog-hits.git
   ```
 
 - pip install
