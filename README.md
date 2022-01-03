@@ -9,7 +9,7 @@
 - Python >= 3.8
 
 ### 2) 설치
-- 조회수 종합 자료 HTML을 저장할 폴더 생성
+- 조회수 통계 종합 데이터를 저장할 폴더 생성
   ```shell
   $ mkdir velog-hits-data
   ```
