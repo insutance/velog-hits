@@ -9,12 +9,17 @@
 - Python >= 3.8
 
 ### 2) 설치
-- git clone
+- 조회수 종합 자료 HTML을 저장할 폴더 생성
   ```shell
-  $ git clone https://github.com/insutance/velog-hits.git
+  $ mkdir velog-hits-data
   ```
 
-- pip install
+- 생성한 폴더로 이동
+  ```shell
+  $ cd velog-hits-data
+  ```
+
+- pip 설치
   ```shell
   $ pip install velog-hits
   ```
@@ -53,10 +58,12 @@ $ velog-hits -u {username} -at {access_token}
 '{username}'님의 조회수 데이터를 모두 가져왔습니다!!
 HTML로 변환을 시작합니다...
 Velog Hits Success!!
-Velog Hits Result: {결과 index.html 파일 위치 경로}
+Velog Hits Result: {오늘날짜.html 파일 위치 경로}
 ```
 
 (해당 기능을 실행한 후 `.../velog-hits/htmlhits` 경로에 `index.html` 파일이 생성되었을 것입니다.)
 
-### 3) index.html 파일 위치 경로 복사 및 붙여넣기
-결과로 나온 `{결과 index.html 파일 위치 경로}` 해당 부분을 복사한 후 **웹 브라우저를 열고 주소창에** 붙여넣기합니다.
+### 3) 결과 확인
+조회수 통계 결과는 명령어를 실행시킨 위치에 `htmlhits` 라는 폴더가 생성됩니다. (명령어를 실행시킨 위치에 저장되기 때문에 `시작하기-설치` 부분에서 데이터 저장 폴더를 생성하고 해당 폴더로 이동한 것입니다.)
+
+결과로 나온 `{오늘날짜.html 파일 위치 경로}` 부분을 복사한 후 **웹 브라우저를 열고 주소창에** 붙여넣기합니다.

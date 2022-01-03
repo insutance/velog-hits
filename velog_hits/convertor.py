@@ -3,26 +3,31 @@ import pandas as pd
 import sys
 
 from pathlib import Path
+from datetime import datetime
 
 
 class DF2HTMLConverter:
   def convert_df_to_html(self, df):
     try:
       velog_hits_path = Path.cwd()
-      html_path = os.path.join(velog_hits_path, "htmlhits")
-      if not os.path.isdir(html_path):
-        os.mkdir(html_path)
+      file_name = datetime.today().strftime("%Y%m%d")
+      result_directory_path = os.path.join(velog_hits_path, "htmlhits")
+      html_file_path = os.path.join(result_directory_path, f"{file_name}.html")
+      json_file_path = os.path.join(result_directory_path, f"{file_name}.json")
 
-      with open(os.path.join(html_path, "index.html"), "w") as html_file:
+      if not os.path.isdir(result_directory_path):
+        os.mkdir(result_directory_path)
+
+      with open(html_file_path, "w") as html_file:
         html = df.to_html(index=False, escape=False)
         html_file.write(html)
 
-      with open(os.path.join(html_path, "hits_data.json"), "w") as json_file:
+      with open(json_file_path, "w") as json_file:
         json_data = df.to_json(orient="records", date_format="iso")
         json_file.write(json_data)
 
       print("Velog Hits Success!!")
-      print(f"Velog Hits Result: {os.path.join(html_path, 'index.html')}")
+      print(f"Velog Hits Result: {html_file_path}")
       return True
 
     except Exception:

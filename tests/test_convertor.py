@@ -2,6 +2,7 @@ import os
 import pytest
 
 from pathlib import Path
+from datetime import datetime
 from velog_hits.convertor import DF2HTMLConverter
 from velog_hits.crawler import HitsCrawler
 
@@ -45,6 +46,8 @@ def test_df2html(username, access_token):
   df_result = convertor.get_result_dataframe(post_infos, f"https://velog.io/@{username}/")
   assert convertor.convert_df_to_html(df_result)
 
-  root_path = Path((Path(__file__).parent).parent.resolve())
-  index_html_path = os.path.join(root_path, "htmlhits", "index.html")
-  assert os.path.isfile(index_html_path)
+  velog_hits_path = Path.cwd()
+  file_name = datetime.today().strftime("%Y%m%d")
+  result_directory_path = os.path.join(velog_hits_path, "htmlhits")
+  html_file_path = os.path.join(result_directory_path, f"{file_name}.html")
+  assert os.path.isfile(html_file_path)
