@@ -52,7 +52,7 @@ class DF2HTMLConverter:
     df = self._modify_date_format(df)
 
     df = df[["post", "tags", "comments_count", "likes", "total", "latest_count", "latest_day"]]
-    df.rename(
+    df = df.rename(
         columns={
             "post": "제목",
             "tags": "태그",
@@ -61,8 +61,7 @@ class DF2HTMLConverter:
             "total": "총 방문자",
             "latest_count": "최근 방문자",
             "latest_day": "최근방문날짜"
-        },
-        inplace=True
+        }
     )
     return df
 
