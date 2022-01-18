@@ -7,6 +7,7 @@ from pathlib import Path
 class CssJsCreator:
   def __init__(self) -> None:
     self.velog_hits_path = Path.cwd()
+    self.copy_file_directory_path = Path(__file__).resolve().parent
 
   def copy_css_file(self) -> bool:
     file_name = "table.css"
@@ -27,7 +28,7 @@ class CssJsCreator:
     return False
 
   def get_copy_file_path(self, file_name) -> str:
-    return os.path.join(self.velog_hits_path, "velog_hits", "html", file_name)
+    return self.copy_file_directory_path.joinpath(file_name)
 
   def get_destination_file_path(self, file_name) -> str:
     return os.path.join(self.velog_hits_path, "htmlhits", file_name)
