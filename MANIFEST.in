@@ -1,0 +1,2 @@
+include velog_hits/html/*.css
+include velog_hits/html/*.js
