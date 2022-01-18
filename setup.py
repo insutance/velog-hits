@@ -21,5 +21,7 @@ setup(
         "console_scripts": [
             "velog-hits = velog_hits.main:main"
         ]
-    }
+    },
+    include_package_data = True,
+    package_data={"velog-hits": ["html/*.css", "html/*.js"]}
 )
