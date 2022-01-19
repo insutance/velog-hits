@@ -27,7 +27,7 @@ class DF2HTMLConverter:
   def convert_df_to_html(self, df) -> bool:
     try:
       with open(self.html_file_path, "w") as html_file:
-        html = df.to_html(index=False, escape=False, classes='sortable')
+        html = df.to_html(index=False, escape=False, classes="sortable")
         sort_table_html = html_string.format(dataframe_to_html_table=html)
         html_file.write(sort_table_html)
       return True
