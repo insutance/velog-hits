@@ -34,7 +34,9 @@ if hits_crawler.is_exist_user() is False:
   st.error("존재하지 않는 사용자입니다. 확인 부탁드려요-!", icon="😵")
   st.stop()
 
-post_infos = hits_crawler.get_post_infos()
+with st.spinner('🍀 데이터를 가져오는 중입니다. 잠시만 기다려 주세요-!'):
+  post_infos = hits_crawler.get_post_infos()
+  st.balloons()
 
 tab_views, tab_comments, tab_likes = st.tabs(["📈 조회수 순위", "💬 댓글 순위", "♥️ 좋아요 순위"])
 
