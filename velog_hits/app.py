@@ -26,6 +26,10 @@ with st.sidebar:
       else:
         IS_EXECUTE = True
 
+  st.caption("💡 Access Token 확인하는 방법")
+  st.caption("1. 자신의 velog 접속 및 로그인")
+  st.caption("2. F12 - Application - Storage - Cookies - https://velog.io - access_token을 확인")
+
 if IS_EXECUTE is False:
   st.stop()
 
