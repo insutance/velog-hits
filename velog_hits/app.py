@@ -1,6 +1,9 @@
+import altair as alt
 import streamlit as st
 
 from crawler import HitsCrawler
+
+st.set_page_config(layout="wide")
 
 IS_EXECUTE = False
 with st.sidebar:
@@ -32,3 +35,10 @@ if hits_crawler.is_exist_user() is False:
   st.stop()
 
 post_infos = hits_crawler.get_post_infos()
+
+chart = alt.Chart(post_infos).mark_bar().encode(
+  x=alt.X("total", title="조회수"),
+  y=alt.Y("title", title="제목", sort="-x"),
+  color=alt.Color("total", scale=alt.Scale(scheme="reds"), legend=None)).properties(title="게시물 조회수")
+
+st.altair_chart(chart, use_container_width=True)
