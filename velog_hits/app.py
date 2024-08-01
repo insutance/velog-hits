@@ -3,7 +3,7 @@ import streamlit as st
 
 from crawler import HitsCrawler
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Velog Hits", page_icon="🍕", layout="wide")
 
 IS_EXECUTE = False
 with st.sidebar:
