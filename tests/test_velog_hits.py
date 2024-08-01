@@ -1,3 +1,4 @@
+# Deprecated
 import pytest
 
 from velog_hits.convertor import DF2HTMLConverter

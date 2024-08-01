@@ -1,3 +1,4 @@
+# Deprecated
 from velog_hits.command import CommandParser
 from velog_hits.convertor import DF2HTMLConverter
 from velog_hits.crawler import HitsCrawler
