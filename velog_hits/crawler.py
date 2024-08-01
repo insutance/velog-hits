@@ -10,6 +10,10 @@ from graphql import graphql_posts, graphql_get_status
 
 LIMIT = 50
 
+VELOG_URL = "https://velog.io/"
+POST_GRAPHQL_URL = "https://v3.velog.io/graphql"
+VIEW_GRAPHQL_URL = "https://v2cdn.velog.io/graphql"
+
 
 class HitsCrawler:
   def __init__(
@@ -18,12 +22,12 @@ class HitsCrawler:
       access_token
   ) -> None:
     self.username = username
-    self.url = f"https://velog.io/@{username}/"
+    self.url = f"{VELOG_URL}@{username}/"
     self.access_token = access_token
     self.headers = {"Authorization": f"Bearer {access_token}"}
 
   def is_exist_user(self):
-    response = requests.get(f"https://velog.io/@{self.username}")
+    response = requests.get(f"{VELOG_URL}@{self.username}")
     return False if response.status_code == 404 else True
 
   def get_post_infos(self) -> pd.DataFrame:
@@ -46,7 +50,7 @@ class HitsCrawler:
       else:
         query = graphql_posts(self.username, LIMIT, cursor)
 
-      response = requests.post(url="https://v3.velog.io/graphql", json=query)
+      response = requests.post(url=POST_GRAPHQL_URL, json=query)
       response_data = json.loads(response.text)
       posts.extend(response_data["data"]["posts"])
 
@@ -65,7 +69,7 @@ class HitsCrawler:
   async def get_view_by_post(self, session: aiohttp.ClientSession, post: dict) -> dict:
     query = graphql_get_status(post["id"])
     async with session.post(
-        url="https://v2cdn.velog.io/graphql",
+        url=VIEW_GRAPHQL_URL,
         json=query,
         headers=self.headers,
         ssl=False
