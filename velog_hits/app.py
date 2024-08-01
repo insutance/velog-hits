@@ -36,9 +36,34 @@ if hits_crawler.is_exist_user() is False:
 
 post_infos = hits_crawler.get_post_infos()
 
-chart = alt.Chart(post_infos).mark_bar().encode(
+tab_views, tab_comments, tab_likes = st.tabs(["📈 조회수 순위", "💬 댓글 순위", "♥️ 좋아요 순위"])
+
+chart_views = alt.Chart(post_infos).mark_bar().encode(
   x=alt.X("total", title="조회수"),
   y=alt.Y("title", title="제목", sort="-x"),
-  color=alt.Color("total", scale=alt.Scale(scheme="reds"), legend=None)).properties(title="게시물 조회수")
+  color=alt.Color("total", scale=alt.Scale(scheme="reds"), legend=None),
+  tooltip=[alt.Tooltip("title", title="제목"), alt.Tooltip("total", title="조회수", format="d")]
+)
 
-st.altair_chart(chart, use_container_width=True)
+chart_comments = alt.Chart(post_infos).mark_bar().encode(
+  x=alt.X("comments_count", title="댓글", axis=alt.Axis(format='d')),
+  y=alt.Y("title", title="제목", sort="-x"),
+  color=alt.Color("comments_count", scale=alt.Scale(scheme="reds"), legend=None),
+  tooltip=[alt.Tooltip("title", title="제목"), alt.Tooltip("comments_count", title="댓글", format="d")]
+)
+
+chart_likes = alt.Chart(post_infos).mark_bar().encode(
+  x=alt.X("likes", title="좋아요", axis=alt.Axis(format='d')),
+  y=alt.Y("title", title="제목", sort="-x"),
+  color=alt.Color("likes", scale=alt.Scale(scheme="reds"), legend=None),
+  tooltip=[alt.Tooltip("title", title="제목"), alt.Tooltip("likes", title="좋아요", format="d")]
+)
+
+with tab_views:
+  st.altair_chart(chart_views, use_container_width=True)
+
+with tab_comments:
+  st.altair_chart(chart_comments, use_container_width=True)
+
+with tab_likes:
+  st.altair_chart(chart_likes, use_container_width=True)
