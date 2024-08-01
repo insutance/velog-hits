@@ -25,7 +25,7 @@ class HitsCrawler:
 
   def get_post_infos(self) -> pd.DataFrame:
     posts = self.get_posts()
-    hits = self.get_hits()
+    hits = self.get_hits(posts)
 
     df_posts = pd.DataFrame.from_dict(posts)
     df_hits = pd.DataFrame.from_dict(hits)
@@ -53,8 +53,7 @@ class HitsCrawler:
 
     return posts
 
-  def get_hits(self) -> list:
-    posts = self.get_posts()
+  def get_hits(self, posts: list) -> list:
     headers = {"Authorization": f"Bearer {self.access_token}"}
 
     hits = []
