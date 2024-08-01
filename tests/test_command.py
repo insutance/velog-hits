@@ -1,3 +1,4 @@
+# Deprecated
 import pytest
 
 from velog_hits.command import CommandParser

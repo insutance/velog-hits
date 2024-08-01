@@ -1,40 +1,21 @@
-def graphql_posts(username, cursor=None):
+def graphql_posts(username, limit, cursor=None) -> dict:
   """블로그 게시물 목록 가져오는 GraphQL"""
-  if cursor is None:
-    cursor = "null"
-  else:
-    cursor = f"\"{cursor}\""
-
   return {
-      "query": f"""
-    query {{
-      posts(cursor: {cursor}, username: "{username}") {{
-        id
-        title
-        url_slug
-        tags
-        comments_count
-        likes
-        }}
-      }}
-  """
+    "query": "query velogPosts($input: GetPostsInput!) {\n  posts(input: $input) {\n    id\n    title\n    url_slug\n    released_at\n    updated_at\n    comments_count\n    tags\n    likes\n  }\n}\n    ",
+    "variables": {
+      "input": {
+        "cursor": cursor if cursor is not None else None,
+        "username": username,
+        "limit": limit,
+        "tag": ""
+      }
+    }
   }
 
 
 def graphql_get_status(post_id):
   """통계 정보 가져오는 GraphQL"""
   return {
-      "query": f"""
-    query {{
-    getStats(post_id: "{post_id}") {{
-      total
-      count_by_day {{
-        count
-        day
-        __typename
-      }}
-      __typename
-    }}
-  }}
-  """
+    "query": "query GetStats($post_id: ID!) {\n  getStats(post_id: $post_id) {\n    total\n    count_by_day {\n      count\n      day\n      __typename\n    }\n    __typename\n  }\n}\n",
+    "variables": {"post_id": post_id}
   }
